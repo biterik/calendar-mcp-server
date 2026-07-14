@@ -1,0 +1,56 @@
+# Author: Erik Bitzek <e.bitzek@mpi-susmat.de>
+# calmcp registry — copy to `calendars.yaml` (git-ignored) and edit.
+#
+# calmcp looks for your registry in this order:
+#   1. $CALMCP_REGISTRY
+#   2. ./calendars.yaml               (project-local)
+#   3. ~/.calendars.yaml              (per-user)
+#   4. ~/.config/calmcp/calendars.yaml
+# Tip: put it at ~/.config/calmcp/calendars.yaml to use calmcp from any folder.
+# Tip: run `calmcp discover` to list the real calendars on your server.
+#
+# NO SECRETS LIVE HERE. Passwords are stored in the OS keyring under each
+# account's `keyring_service` (see DESIGN.md §5). This file only maps logical
+# calendar ids to accounts and to a safety `role`.
+
+accounts:
+  kerio_personal:
+    type: caldav
+    url: "https://xmail1.example.de/caldav/users/example.de/jdoe"
+    username: jdoe
+    keyring_service: "calmcp/kerio_personal"   # password pulled from OS keyring
+    verify_ssl: true
+
+  icloud:
+    type: caldav
+    url: "https://caldav.icloud.com"
+    username: "your-apple-id@example.com"
+    keyring_service: "calmcp/icloud"           # Apple APP-SPECIFIC password
+    verify_ssl: true
+
+calendars:
+  # Your own calendar (you are the owner). With neither `url` nor `name`, calmcp
+  # falls back to the account's first calendar — set one for reliable targeting.
+  - id: me_personal
+    account: kerio_personal
+    role: owner
+
+  # A calendar shared TO you by another user (you are NOT the owner). Targeting
+  # by full collection URL is the most reliable; `owner` enables name search in
+  # that user's calendar home.
+  - id: cm_absence
+    account: kerio_personal
+    name: "CM_Absence - cm-office"
+    url: "https://xmail1.example.de/full-calendars/example.de/cm-office/ABC123/"
+    role: writable
+    owner: cm-office
+
+  - id: family
+    account: icloud
+    name: "Family"
+    role: read-only
+
+defaults:
+  write_calendar: me_personal
+  timezone: Europe/Berlin
+  reminder: "0"            # 0=off, or 30m / 2h / 1d

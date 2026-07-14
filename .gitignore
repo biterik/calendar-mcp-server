@@ -1,0 +1,31 @@
+# Local, secret-bearing config — never commit
+calendars.yaml
+secrets/
+*.local.yaml
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# State
+.calmcp/
+audit.jsonl
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+
+# Claude Code local overrides
+.claude/settings.local.json
+
+# Local one-off discovery helper (not for publishing)
+_discover_calendars.py
+_discover_icloud.py
