@@ -10,6 +10,7 @@ gate writes.
 from __future__ import annotations
 
 import os
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -21,13 +22,32 @@ VALID_ROLES = ("owner", "writable", "read-only")
 REGISTRY_FILENAME = "calendars.yaml"
 
 
+def user_config_dir() -> Path:
+    """The platform-native per-user config directory for calmcp.
+
+    - Windows: ``%APPDATA%\\calmcp``
+    - macOS:   ``~/Library/Application Support/calmcp``
+    - Linux/other: ``$XDG_CONFIG_HOME/calmcp`` or ``~/.config/calmcp``
+    """
+    if sys.platform == "win32":
+        base = os.environ.get("APPDATA") or str(Path.home() / "AppData" / "Roaming")
+        return Path(base) / "calmcp"
+    if sys.platform == "darwin":
+        return Path.home() / "Library" / "Application Support" / "calmcp"
+    xdg = os.environ.get("XDG_CONFIG_HOME")
+    base = Path(xdg) if xdg else Path.home() / ".config"
+    return base / "calmcp"
+
+
 def candidate_registry_paths() -> list[Path]:
     """Locations calmcp looks for the registry, in priority order.
 
     1. ``$CALMCP_REGISTRY`` (if set)
     2. ``./calendars.yaml`` in the current directory
     3. ``~/.calendars.yaml`` in your home directory
-    4. ``~/.config/calmcp/calendars.yaml`` (XDG-style config dir)
+    4. the platform-native config dir (see :func:`user_config_dir`), e.g.
+       ``~/.config/calmcp/calendars.yaml`` on Linux,
+       ``%APPDATA%\\calmcp\\calendars.yaml`` on Windows.
     """
     paths: list[Path] = []
     env = os.environ.get("CALMCP_REGISTRY")
@@ -35,8 +55,16 @@ def candidate_registry_paths() -> list[Path]:
         paths.append(Path(env).expanduser())
     paths.append(Path.cwd() / REGISTRY_FILENAME)
     paths.append(Path.home() / f".{REGISTRY_FILENAME}")
-    paths.append(Path.home() / ".config" / "calmcp" / REGISTRY_FILENAME)
-    return paths
+    paths.append(user_config_dir() / REGISTRY_FILENAME)
+    # De-duplicate while preserving order (the config dir may coincide with an
+    # earlier entry depending on the platform / env).
+    seen: set[Path] = set()
+    ordered: list[Path] = []
+    for p in paths:
+        if p not in seen:
+            seen.add(p)
+            ordered.append(p)
+    return ordered
 
 
 def default_registry_path() -> Path:

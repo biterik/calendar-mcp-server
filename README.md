@@ -55,6 +55,12 @@ calmcp discover
 calmcp list_calendars
 ```
 
+> **Windows / Linux.** Use `python` instead of `python3` on Windows, and activate
+> the venv with `.venv\Scripts\Activate.ps1` (PowerShell) or
+> `.venv\Scripts\activate.bat` (cmd). On Linux/macOS use
+> `source .venv/bin/activate` as shown. Everything else is identical across
+> platforms — `calmcp` works the same on all three.
+
 ## Configuration
 
 ### Where the registry lives
@@ -63,11 +69,14 @@ calmcp list_calendars
 
 1. `$CALMCP_REGISTRY` (an explicit path)
 2. `./calendars.yaml` (the current directory)
-3. `~/.calendars.yaml` (per-user)
-4. `~/.config/calmcp/calendars.yaml` (XDG-style config dir)
+3. `~/.calendars.yaml` (per-user; works on every platform)
+4. the platform-native config directory:
+   - **Linux:** `~/.config/calmcp/calendars.yaml` (or `$XDG_CONFIG_HOME/calmcp/…`)
+   - **macOS:** `~/Library/Application Support/calmcp/calendars.yaml`
+   - **Windows:** `%APPDATA%\calmcp\calendars.yaml`
 
-If you want to run `calmcp` from anywhere, put your file at
-`~/.config/calmcp/calendars.yaml`. You can always override with `--registry
+To run `calmcp` from anywhere, put your file in that config directory (or use
+`~/.calendars.yaml`). You can always override with `--registry
 path/to/calendars.yaml` or `CALMCP_REGISTRY=...`.
 
 `calendars.yaml` is **git-ignored**, so it never ends up in the repo and a
@@ -106,6 +115,25 @@ defaults:
   write_calendar: me_personal
   timezone: Europe/Berlin
 ```
+
+### Credentials (OS keyring)
+
+Passwords live in your operating system's credential store — never in the repo:
+**macOS** Keychain, **Windows** Credential Manager, **Linux** Secret Service
+(GNOME Keyring / KWallet, via libsecret). Set one with:
+
+```bash
+keyring set <keyring_service> <username>       # e.g. keyring set calmcp/icloud you@icloud.com
+# If the `keyring` command isn't on PATH (common on Windows):
+python -m keyring set <keyring_service> <username>
+```
+
+**Headless Linux note.** The Secret Service needs a running desktop / D-Bus
+session. On a server — or if you see "No recommended backend" — install an
+alternative backend (`pip install keyrings.alt`) or run inside an unlocked
+keyring session. Because the MCP server is launched without a terminal, the
+password must already be in the keyring before you start your Claude client
+(there's nowhere to prompt).
 
 ### iCloud
 
@@ -164,8 +192,9 @@ calmcp delete_event --calendar me_personal --uid <uid> --confirm
 
 Writing to a calendar whose `role` isn't `owner` adds a warning and requires a
 second `--confirm-foreign` gate. Recurring writes take `--scope this|all|thisAndFuture`.
-Every real write is appended to an audit log
-(`~/.local/state/calmcp/audit.jsonl` on Linux/macOS).
+Every real write is appended to an audit log — `~/.local/state/calmcp/audit.jsonl`
+on Linux/macOS, `%LOCALAPPDATA%\calmcp\audit.jsonl` on Windows (override with
+`CALMCP_STATE_DIR`).
 
 ## Connect to Claude (MCP)
 
@@ -210,6 +239,25 @@ Edit the config file — macOS:
 
 Fully quit and reopen Claude Desktop; the `calmcp` tools appear in a new chat.
 
+On **Windows**, the launcher is `calmcp-mcp.exe` under `Scripts`, and JSON
+requires **escaped backslashes**:
+
+```json
+{
+  "mcpServers": {
+    "calmcp": {
+      "command": "C:\\Users\\you\\calendar-mcp-server\\.venv\\Scripts\\calmcp-mcp.exe",
+      "env": {
+        "CALMCP_REGISTRY": "C:\\Users\\you\\calendar-mcp-server\\calendars.yaml"
+      }
+    }
+  }
+}
+```
+
+(Tip: put your registry at the platform config path above and you can drop the
+`CALMCP_REGISTRY` env entirely.)
+
 ### Claude Code
 
 ```bash
@@ -231,8 +279,8 @@ updating is just:
 
 ```bash
 git pull
-source .venv/bin/activate
-pip install -e ".[mcp]"     # in case dependencies changed
+source .venv/bin/activate           # Windows: .venv\Scripts\activate
+pip install -e ".[mcp]"             # in case dependencies changed
 ```
 
 Your registry and credentials are untouched. If you moved your registry to

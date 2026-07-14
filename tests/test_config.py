@@ -70,3 +70,41 @@ def test_missing_returns_first_candidate(
     monkeypatch.setenv("HOME", str(home))
     # Nothing exists anywhere -> highest-priority candidate (./calendars.yaml).
     assert registry.default_registry_path() == work / "calendars.yaml"
+
+
+def test_user_config_dir_windows(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(registry.sys, "platform", "win32")
+    monkeypatch.setenv("APPDATA", str(tmp_path / "Roaming"))
+    assert registry.user_config_dir() == tmp_path / "Roaming" / "calmcp"
+
+
+def test_user_config_dir_macos(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(registry.sys, "platform", "darwin")
+    monkeypatch.setenv("HOME", str(tmp_path))
+    assert (
+        registry.user_config_dir()
+        == tmp_path / "Library" / "Application Support" / "calmcp"
+    )
+
+
+def test_user_config_dir_linux_xdg(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    monkeypatch.setattr(registry.sys, "platform", "linux")
+    monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path / "xdg"))
+    assert registry.user_config_dir() == tmp_path / "xdg" / "calmcp"
+
+
+def test_config_dir_used_in_candidates(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.delenv("CALMCP_REGISTRY", raising=False)
+    monkeypatch.setattr(registry.sys, "platform", "win32")
+    work = tmp_path / "empty"
+    work.mkdir()
+    appdata = tmp_path / "Roaming"
+    (appdata / "calmcp").mkdir(parents=True)
+    target = appdata / "calmcp" / "calendars.yaml"
+    target.write_text("accounts: {}\n", encoding="utf-8")
+    monkeypatch.chdir(work)
+    monkeypatch.setenv("APPDATA", str(appdata))
+    monkeypatch.setenv("HOME", str(tmp_path / "home"))
+    assert registry.default_registry_path() == target
