@@ -128,6 +128,10 @@ keyring set <keyring_service> <username>       # e.g. keyring set calmcp/icloud 
 python -m keyring set <keyring_service> <username>
 ```
 
+Keychain entries are **local to each machine** — they are not synced by
+iCloud Keychain or similar. If you use `calmcp` on more than one computer,
+run `keyring set` separately on each one.
+
 **Headless Linux note.** The Secret Service needs a running desktop / D-Bus
 session. On a server — or if you see "No recommended backend" — install an
 alternative backend (`pip install keyrings.alt`) or run inside an unlocked
@@ -139,7 +143,9 @@ password must already be in the keyring before you start your Claude client
 
 iCloud is just another CalDAV account. Use `https://caldav.icloud.com` and an
 **app-specific password** (generate one at
-[appleid.apple.com](https://appleid.apple.com) → Sign-In & Security):
+[appleid.apple.com](https://appleid.apple.com) → Sign-In & Security). The
+`username` must be your actual sign-in Apple ID — this can differ from the
+`@icloud.com` address your calendar shows:
 
 ```bash
 keyring set calmcp/icloud your-apple-id@icloud.com   # paste the app-specific password
@@ -220,43 +226,78 @@ to an **absolute path** (or keep your file at `~/.config/calmcp/calendars.yaml`)
 
 ### Claude Desktop
 
-Edit the config file — macOS:
-`~/Library/Application Support/Claude/claude_desktop_config.json`; Windows:
-`%APPDATA%\Claude\claude_desktop_config.json`:
+Current Claude Desktop builds install local MCP servers as **extensions** —
+packaged `.mcpb` bundles you drag onto the Extensions panel — rather than by
+hand-editing a JSON config file. `calmcp` doesn't need to bundle its own code
+or dependencies for this: the extension manifest just points at the
+`calmcp-mcp` executable already produced by `pip install -e ".[mcp]"` above.
 
-```json
-{
-  "mcpServers": {
-    "calmcp": {
-      "command": "/path/to/calendar-mcp-server/.venv/bin/calmcp-mcp",
-      "env": {
-        "CALMCP_REGISTRY": "/path/to/calendar-mcp-server/calendars.yaml"
-      }
-    }
-  }
-}
-```
+1. Make sure `calmcp` is installed as in **Quick start** — you need a working
+   `.venv/bin/calmcp-mcp` (or `.venv\Scripts\calmcp-mcp.exe` on Windows) and a
+   filled-in `calendars.yaml`.
 
-Fully quit and reopen Claude Desktop; the `calmcp` tools appear in a new chat.
+2. Build the extension bundle. This only needs to be done once (or again if
+   you move the repo or rebuild the venv at a different path):
 
-On **Windows**, the launcher is `calmcp-mcp.exe` under `Scripts`, and JSON
-requires **escaped backslashes**:
+   ```bash
+   npm install -g @anthropic-ai/mcpb
+   mkdir calmcp-ext && cd calmcp-ext
+   cat > manifest.json << 'EOF'
+   {
+     "manifest_version": "0.4",
+     "name": "calmcp",
+     "display_name": "Calendar (calmcp)",
+     "version": "0.0.1",
+     "description": "CalDAV calendar tools (Kerio + iCloud) via calmcp.",
+     "author": { "name": "Your Name" },
+     "server": {
+       "type": "binary",
+       "entry_point": "/absolute/path/to/calendar-mcp-server/.venv/bin/calmcp-mcp",
+       "mcp_config": {
+         "command": "/absolute/path/to/calendar-mcp-server/.venv/bin/calmcp-mcp",
+         "args": [],
+         "env": {
+           "CALMCP_REGISTRY": "/absolute/path/to/calendar-mcp-server/calendars.yaml"
+         }
+       }
+     }
+   }
+   EOF
+   mcpb pack . calmcp.mcpb
+   ```
 
-```json
-{
-  "mcpServers": {
-    "calmcp": {
-      "command": "C:\\Users\\you\\calendar-mcp-server\\.venv\\Scripts\\calmcp-mcp.exe",
-      "env": {
-        "CALMCP_REGISTRY": "C:\\Users\\you\\calendar-mcp-server\\calendars.yaml"
-      }
-    }
-  }
-}
-```
+   Use **absolute paths** for `entry_point` and `mcp_config.command`/`env` —
+   on Windows, point at `...\.venv\Scripts\calmcp-mcp.exe` with escaped
+   backslashes (`\\`).
 
-(Tip: put your registry at the platform config path above and you can drop the
-`CALMCP_REGISTRY` env entirely.)
+3. In Claude Desktop, go to **Settings → Extensions** and drag `calmcp.mcpb`
+   onto the "Drag .MCPB or .DXT files here to install" drop zone.
+
+4. `calmcp` now shows up as an installed extension, and its tools are
+   available in every new chat on that machine — no further setup needed. If
+   they don't show up, fully quit (not just close the window) and reopen
+   Claude Desktop.
+
+> **Legacy / older builds.** Some Claude Desktop versions instead read an
+> `mcpServers` block from `claude_desktop_config.json` directly — macOS:
+> `~/Library/Application Support/Claude/claude_desktop_config.json`; Windows:
+> `%APPDATA%\Claude\claude_desktop_config.json`. If your build still uses that
+> file (check whether it already has an `mcpServers` key), add:
+>
+> ```json
+> {
+>   "mcpServers": {
+>     "calmcp": {
+>       "command": "/path/to/calendar-mcp-server/.venv/bin/calmcp-mcp",
+>       "env": {
+>         "CALMCP_REGISTRY": "/path/to/calendar-mcp-server/calendars.yaml"
+>       }
+>     }
+>   }
+> }
+> ```
+>
+> then fully quit and reopen Claude Desktop.
 
 ### Claude Code
 
@@ -286,6 +327,9 @@ pip install -e ".[mcp]"             # in case dependencies changed
 Your registry and credentials are untouched. If you moved your registry to
 `~/.config/calmcp/calendars.yaml`, you can even delete and re-clone the repo
 without losing your setup.
+
+If you're using the Claude Desktop extension (`.mcpb`), rebuild and reinstall
+it whenever the repo path or venv changes — see **Claude Desktop** above.
 
 ## Develop
 
