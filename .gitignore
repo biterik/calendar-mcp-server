@@ -29,3 +29,6 @@ audit.jsonl
 # Local one-off discovery helper (not for publishing)
 _discover_calendars.py
 _discover_icloud.py
+
+# Personal Claude Desktop extension build (contains local absolute paths)
+*.mcpb
