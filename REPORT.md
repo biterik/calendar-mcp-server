@@ -1,12 +1,12 @@
 # biterik/calendar-mcp-server — repo vitals
 
 ![stars](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbiterik%2Fcalendar-mcp-server%2Fvitals%2Fbadge%2Fstars.json) ![views/week](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbiterik%2Fcalendar-mcp-server%2Fvitals%2Fbadge%2Fviews-week.json) 
-_Updated 2026-10-11T10:07:59Z (UTC) · machine-readable: [VITALS.json](VITALS.json) · full history: [history.ndjson](history.ndjson) · daily snapshots: [snapshots/](snapshots/)_
+_Updated 2026-10-12T11:02:35Z (UTC) · machine-readable: [VITALS.json](VITALS.json) · full history: [history.ndjson](history.ndjson) · daily snapshots: [snapshots/](snapshots/)_
 
 | | |
 |---|---|
 | Repository created | 2026-07-13 |
-| Tracked by repo-vitals since | 2026-07-21 (83 days)³ |
+| Tracked by repo-vitals since | 2026-07-21 (84 days)³ |
 
 
 ## Summary
@@ -15,7 +15,7 @@ _Updated 2026-10-11T10:07:59Z (UTC) · machine-readable: [VITALS.json](VITALS.js
 |---|---:|---:|---:|
 | Views | 4 | 6 | 6 |
 | Unique visitors¹ | 4 | 6 | 6 |
-| Clones | 237 | 414 | 414 |
+| Clones | 227 | 416 | 416 |
 | Stars gained | 0 | 0 | 0 |
 | Release downloads gained | 0 | 0 | 0 |
 
@@ -23,14 +23,14 @@ _Updated 2026-10-11T10:07:59Z (UTC) · machine-readable: [VITALS.json](VITALS.js
 
 ## Since tracking began
 
-Everything recorded so far, from 2026-07-21 (83 days) — the total, and the same total expressed as an average rate.
+Everything recorded so far, from 2026-07-21 (84 days) — the total, and the same total expressed as an average rate.
 
 | Metric | Total | Average / 30 d |
 |---|---:|---:|
-| Views | 6 | 2.2 |
-| Unique visitors¹ | 6 | 2.2 |
-| Clones | 414 | 149.6 |
-| Unique cloners¹ | 291 | 105.2 |
+| Views | 6 | 2.1 |
+| Unique visitors¹ | 6 | 2.1 |
+| Clones | 416 | 148.6 |
+| Unique cloners¹ | 293 | 104.6 |
 | Stars gained | 0 | 0.0 |
 | Release downloads gained | 0 | 0.0 |
 
@@ -39,14 +39,14 @@ Averages are the total divided by days tracked, times 30 — not a projection.
 ## Trends — last 30 days
 
 ```
-views  ▁▁█▁▁▁▁▁▁▁▁█▁▁▁▁█▁█▁▁▁▁▁▁▁▁▁▁·  (4 total)
-clones ▄▂▃▅▂▃▁▂▂▅▆▃█▅▂▂▁▁▆▂▅▂▄▁▃▅▁▃▄·  (237 total)
+views  ▁█▁▁▁▁▁▁▁▁█▁▁▁▁█▁█▁▁▁▁▁▁▁▁▁▁▁·  (4 total)
+clones ▂▃▅▂▃▁▂▂▅▆▃█▅▂▂▁▁▆▂▅▂▄▁▃▅▁▃▄▁·  (227 total)
 ```
 
 ('·' = day without data)
 
 Stars: **0** (+0 in 30 d, +0 in 7 d)
-**Conversion funnel (30 d):** 4 unique visitors → 159 unique cloners → 0 stars gained → 0 downloads gained
+**Conversion funnel (30 d):** 4 unique visitors → 154 unique cloners → 0 stars gained → 0 downloads gained
 
 ## Where visitors come from (14-day window)
 
@@ -83,7 +83,7 @@ Interactive dashboard: [index.html](index.html) on this branch (raw URLs don't
 render HTML — view it via GitHub Pages on the vitals branch, the repo-vitals
 hub, or locally: `git clone -b vitals … && python -m http.server`).
 A copy of this report named with the repo and today's date lives at
-[reports/biterik-calendar-mcp-server-2026-10-11.md](reports/biterik-calendar-mcp-server-2026-10-11.md)
+[reports/biterik-calendar-mcp-server-2026-10-12.md](reports/biterik-calendar-mcp-server-2026-10-12.md)
 — safe to download standalone.
 
 <sub>[repo-vitals](https://github.com/biterik/repo-vitals) by Erik Bitzek —
