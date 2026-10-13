@@ -7,25 +7,25 @@
     "prs_merged_30d": 0,
     "prs_opened_30d": 0
   },
-  "collected_at": "2026-10-12T11:02:35Z",
-  "date": "2026-10-12",
+  "collected_at": "2026-10-13T10:45:26Z",
+  "date": "2026-10-13",
   "derived": {
-    "clones_last_30d": 227,
-    "clones_last_7d": 46,
+    "clones_last_30d": 235,
+    "clones_last_7d": 49,
     "downloads_gained_30d": 0,
     "downloads_total": 0,
     "funnel_30d": {
       "downloads_gained": 0,
       "stars_gained": 0,
-      "unique_cloners": 154,
+      "unique_cloners": 159,
       "unique_visitors": 4
     },
-    "history_days": 84,
+    "history_days": 85,
     "per_30d": {
-      "clones": 148.6,
+      "clones": 150.7,
       "downloads_gained": 0.0,
       "stars_gained": 0.0,
-      "unique_cloners": 104.6,
+      "unique_cloners": 105.9,
       "unique_visitors": 2.1,
       "views": 2.1
     },
@@ -40,35 +40,35 @@
     "stars_gained_7d": 0,
     "stars_now": 0,
     "totals": {
-      "clones": 416,
+      "clones": 427,
       "downloads_gained": 0,
       "stars_gained": 0,
-      "unique_cloners": 293,
+      "unique_cloners": 300,
       "unique_visitors": 6,
       "views": 6
     },
-    "tracking_days": 84,
+    "tracking_days": 85,
     "tracking_since": "2026-07-21",
     "views_last_30d": 4,
     "views_last_7d": 0,
     "views_prev_7d": 1,
     "windows": {
       "30d": {
-        "clones": 227,
+        "clones": 235,
         "downloads_gained": 0,
         "stars_gained": 0,
         "unique_visitors": 4,
         "views": 4
       },
       "365d": {
-        "clones": 416,
+        "clones": 427,
         "downloads_gained": 0,
         "stars_gained": 0,
         "unique_visitors": 6,
         "views": 6
       },
       "90d": {
-        "clones": 416,
+        "clones": 427,
         "downloads_gained": 0,
         "stars_gained": 0,
         "unique_visitors": 6,
@@ -83,8 +83,8 @@
     "default_branch": "main",
     "fork": false,
     "open_issues": 0,
-    "pushed_at": "2026-10-11T10:08:02Z",
-    "size_kb": 147
+    "pushed_at": "2026-10-12T11:02:39Z",
+    "size_kb": 148
   },
   "popularity": {
     "forks": 0,
@@ -97,10 +97,6 @@
   "schema_version": 1,
   "traffic": {
     "clones": {
-      "2026-09-28": {
-        "count": 1,
-        "uniques": 1
-      },
       "2026-09-29": {
         "count": 1,
         "uniques": 1
@@ -152,17 +148,16 @@
       "2026-10-11": {
         "count": 2,
         "uniques": 2
+      },
+      "2026-10-12": {
+        "count": 11,
+        "uniques": 7
       }
     },
     "paths": [
       {
         "count": 1,
         "path": "/biterik/calendar-mcp-server",
-        "uniques": 1
-      },
-      {
-        "count": 1,
-        "path": "/biterik/calendar-mcp-server/blob/main/DESIGN.md",
         "uniques": 1
       }
     ],
@@ -174,10 +169,6 @@
       }
     ],
     "views": {
-      "2026-09-28": {
-        "count": 1,
-        "uniques": 1
-      },
       "2026-09-29": {
         "count": 0,
         "uniques": 0
@@ -227,6 +218,10 @@
         "uniques": 0
       },
       "2026-10-11": {
+        "count": 0,
+        "uniques": 0
+      },
+      "2026-10-12": {
         "count": 0,
         "uniques": 0
       }
