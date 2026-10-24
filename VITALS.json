@@ -7,25 +7,25 @@
     "prs_merged_30d": 0,
     "prs_opened_30d": 0
   },
-  "collected_at": "2026-10-23T08:39:41Z",
-  "date": "2026-10-23",
+  "collected_at": "2026-10-24T08:14:29Z",
+  "date": "2026-10-24",
   "derived": {
-    "clones_last_30d": 259,
-    "clones_last_7d": 59,
+    "clones_last_30d": 235,
+    "clones_last_7d": 55,
     "downloads_gained_30d": 0,
     "downloads_total": 0,
     "funnel_30d": {
       "downloads_gained": 0,
       "stars_gained": 0,
-      "unique_cloners": 170,
+      "unique_cloners": 155,
       "unique_visitors": 2
     },
-    "history_days": 95,
+    "history_days": 96,
     "per_30d": {
-      "clones": 166.7,
+      "clones": 165.0,
       "downloads_gained": 0.0,
       "stars_gained": 0.0,
-      "unique_cloners": 114.6,
+      "unique_cloners": 113.4,
       "unique_visitors": 1.9,
       "views": 1.9
     },
@@ -47,14 +47,14 @@
       "unique_visitors": 6,
       "views": 6
     },
-    "tracking_days": 95,
+    "tracking_days": 96,
     "tracking_since": "2026-07-21",
     "views_last_30d": 2,
     "views_last_7d": 0,
     "views_prev_7d": 0,
     "windows": {
       "30d": {
-        "clones": 259,
+        "clones": 235,
         "downloads_gained": 0,
         "stars_gained": 0,
         "unique_visitors": 2,
@@ -83,8 +83,8 @@
     "default_branch": "main",
     "fork": false,
     "open_issues": 0,
-    "pushed_at": "2026-10-22T08:44:02Z",
-    "size_kb": 160
+    "pushed_at": "2026-10-23T08:39:45Z",
+    "size_kb": 162
   },
   "popularity": {
     "forks": 0,
