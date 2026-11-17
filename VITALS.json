@@ -7,27 +7,27 @@
     "prs_merged_30d": 0,
     "prs_opened_30d": 0
   },
-  "collected_at": "2026-11-16T11:40:53Z",
-  "date": "2026-11-16",
+  "collected_at": "2026-11-17T12:02:08Z",
+  "date": "2026-11-17",
   "derived": {
-    "clones_last_30d": 249,
-    "clones_last_7d": 44,
+    "clones_last_30d": 242,
+    "clones_last_7d": 35,
     "downloads_gained_30d": 0,
     "downloads_total": 0,
     "funnel_30d": {
       "downloads_gained": 0,
       "stars_gained": 0,
-      "unique_cloners": 159,
+      "unique_cloners": 157,
       "unique_visitors": 3
     },
-    "history_days": 119,
+    "history_days": 120,
     "per_30d": {
-      "clones": 182.0,
+      "clones": 181.8,
       "downloads_gained": 0.0,
       "stars_gained": 0.0,
-      "unique_cloners": 122.8,
-      "unique_visitors": 2.3,
-      "views": 2.3
+      "unique_cloners": 123.0,
+      "unique_visitors": 2.2,
+      "views": 2.2
     },
     "repo_created_at": "2026-07-13T16:21:05Z",
     "star_forecast": {
@@ -40,39 +40,39 @@
     "stars_gained_7d": 0,
     "stars_now": 0,
     "totals": {
-      "clones": 722,
+      "clones": 727,
       "downloads_gained": 0,
       "stars_gained": 0,
-      "unique_cloners": 487,
+      "unique_cloners": 492,
       "unique_visitors": 9,
       "views": 9
     },
-    "tracking_days": 119,
+    "tracking_days": 120,
     "tracking_since": "2026-07-21",
     "views_last_30d": 3,
     "views_last_7d": 0,
     "views_prev_7d": 2,
     "windows": {
       "30d": {
-        "clones": 249,
+        "clones": 242,
         "downloads_gained": 0,
         "stars_gained": 0,
         "unique_visitors": 3,
         "views": 3
       },
       "365d": {
-        "clones": 722,
+        "clones": 727,
         "downloads_gained": 0,
         "stars_gained": 0,
         "unique_visitors": 9,
         "views": 9
       },
       "90d": {
-        "clones": 656,
+        "clones": 647,
         "downloads_gained": 0,
         "stars_gained": 0,
-        "unique_visitors": 9,
-        "views": 9
+        "unique_visitors": 8,
+        "views": 8
       }
     }
   },
@@ -83,8 +83,8 @@
     "default_branch": "main",
     "fork": false,
     "open_issues": 0,
-    "pushed_at": "2026-11-15T11:10:36Z",
-    "size_kb": 190
+    "pushed_at": "2026-11-16T11:40:56Z",
+    "size_kb": 192
   },
   "popularity": {
     "forks": 0,
@@ -97,14 +97,6 @@
   "schema_version": 1,
   "traffic": {
     "clones": {
-      "2026-11-01": {
-        "count": 1,
-        "uniques": 1
-      },
-      "2026-11-02": {
-        "count": 11,
-        "uniques": 6
-      },
       "2026-11-03": {
         "count": 1,
         "uniques": 1
@@ -152,13 +144,21 @@
       "2026-11-14": {
         "count": 15,
         "uniques": 10
+      },
+      "2026-11-15": {
+        "count": 2,
+        "uniques": 2
+      },
+      "2026-11-16": {
+        "count": 3,
+        "uniques": 3
       }
     },
     "paths": [
       {
-        "count": 3,
+        "count": 2,
         "path": "/biterik/calendar-mcp-server",
-        "uniques": 3
+        "uniques": 2
       }
     ],
     "referrers": [
@@ -169,14 +169,6 @@
       }
     ],
     "views": {
-      "2026-11-01": {
-        "count": 1,
-        "uniques": 1
-      },
-      "2026-11-02": {
-        "count": 0,
-        "uniques": 0
-      },
       "2026-11-03": {
         "count": 0,
         "uniques": 0
@@ -222,6 +214,14 @@
         "uniques": 0
       },
       "2026-11-14": {
+        "count": 0,
+        "uniques": 0
+      },
+      "2026-11-15": {
+        "count": 0,
+        "uniques": 0
+      },
+      "2026-11-16": {
         "count": 0,
         "uniques": 0
       }
